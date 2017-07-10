@@ -22,13 +22,13 @@ describe provider_class do
       :mstpctl_bpduguard => true,
       :mstpctl_portnetwork => false,
       :mtu => 9000,
+      :allow_untagged => false,
       :vrf => 'red',
       :vrf_table => 'auto', # Not really valid
       :clagd_enable => true,
       :clagd_sys_mac => '44:38:39:ff:20:94',
       :clagd_peer_ip => '10.1.1.1',
       :clagd_backup_ip => '10.1.2.1'
-
     )
     @provider = provider_class.new(@resource)
   end
@@ -204,6 +204,10 @@ describe provider_class do
     context 'vrf table' do
       subject { confighash['config']['vrf-table'] }
       it { is_expected.to eq 'auto' }
+    end
+    context 'bridge allow-untagged' do
+      subject { confighash['config']['bridge-allow-untagged'] }
+      it { is_expected.to eq 'no' }
     end
     context 'clagd_enable' do
       subject { confighash['config']['clagd-enable'] }

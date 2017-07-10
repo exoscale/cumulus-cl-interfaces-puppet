@@ -22,6 +22,7 @@ describe provider_class do
       :virtual_mac => '00:00:5e:00:00:01',
       :mstpctl_treeprio => 4096,
       :mtu => 9000,
+      :allow_untagged => false,
       :vrf => 'red',
       :mcsnoop => 1,
       :ports => ['swp1-3', 'bond0']
@@ -121,6 +122,10 @@ describe provider_class do
     context 'vrf config' do
       subject { confighash['config']['vrf'] }
       it { is_expected.to eq 'red' }
+    end
+    context 'bridge untagged' do
+      subject { confighash['config']['bridge-allow-untagged'] }
+      it { is_expected.to eq 'no' }
     end
     context 'mcsnoop' do
       subject { confighash['config']['bridge-mcsnoop'] }
